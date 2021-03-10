@@ -1,11 +1,11 @@
-﻿<h1>Users</h1>
-<a routerLink="add" class="btn btn-sm btn-success mb-2">Add User</a>
+﻿<h1>Suscriptores</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Agregar suscriptor</a>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th style="width: 30%">First Name</th>
-      <th style="width: 30%">Last Name</th>
-      <th style="width: 30%">Username</th>
+      <th style="width: 30%">Nombres</th>
+      <th style="width: 30%">Apellidos</th>
+      <th style="width: 30%">Usuario</th>
       <th style="width: 10%"></th>
     </tr>
   </thead>
@@ -15,19 +15,10 @@
       <td>{{ user.lastName }}</td>
       <td>{{ user.username }}</td>
       <td style="white-space: nowrap">
-        <a routerLink="edit/{{ user.id }}" class="btn btn-sm btn-primary mr-1"
-          >Edit</a
-        >
-        <button
-          (click)="deleteUser(user.id)"
-          class="btn btn-sm btn-danger btn-delete-user"
-          [disabled]="user.isDeleting"
-        >
-          <span
-            *ngIf="user.isDeleting"
-            class="spinner-border spinner-border-sm"
-          ></span>
-          <span *ngIf="!user.isDeleting">Delete</span>
+        <a routerLink="edit/{{ user.id }}" class="btn btn-sm btn-primary mr-1">Editar</a>
+        <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
+          <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
+          <span *ngIf="!user.isDeleting">Eliminar</span>
         </button>
       </td>
     </tr>

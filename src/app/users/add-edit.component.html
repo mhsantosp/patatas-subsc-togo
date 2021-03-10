@@ -1,9 +1,9 @@
-﻿<h1 *ngIf="isAddMode">Add User</h1>
-<h1 *ngIf="!isAddMode">Edit User</h1>
+﻿<h1 *ngIf="isAddMode">Nuevo Suscriptor</h1>
+<h1 *ngIf="!isAddMode">Editar Suscriptor</h1>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="form-row">
     <div class="form-group col">
-      <label for="firstName">First Name</label>
+      <label for="firstName">Nombres</label>
       <input
         type="text"
         formControlName="firstName"
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="form-group col">
-      <label for="lastName">Last Name</label>
+      <label for="lastName">Apellidos</label>
       <input
         type="text"
         formControlName="lastName"
@@ -29,7 +29,7 @@
   </div>
   <div class="form-row">
     <div class="form-group col">
-      <label for="username">Username</label>
+      <label for="username">Usuario</label>
       <input
         type="text"
         formControlName="username"
@@ -42,8 +42,8 @@
     </div>
     <div class="form-group col">
       <label for="password">
-        Password
-        <em *ngIf="!isAddMode">(Leave blank to keep the same password)</em>
+        Contraseña
+        <em *ngIf="!isAddMode">(Déjelo en blanco para mantener la misma contraseña)</em>
       </label>
       <input
         type="password"
@@ -61,12 +61,9 @@
   </div>
   <div class="form-group">
     <button [disabled]="loading" class="btn btn-primary">
-      <span
-        *ngIf="loading"
-        class="spinner-border spinner-border-sm mr-1"
-      ></span>
-      Save
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+      Guardar
     </button>
-    <a routerLink="/users" class="btn btn-link">Cancel</a>
+    <a routerLink="/users" class="btn btn-link">Cancelar</a>
   </div>
 </form>

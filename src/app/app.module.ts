@@ -13,16 +13,16 @@ import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 
 @NgModule({
+  declarations: [
+    AppComponent,
+    AlertComponent,
+    HomeComponent
+  ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule
-  ],
-  declarations: [
-    AppComponent,
-    AlertComponent,
-    HomeComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

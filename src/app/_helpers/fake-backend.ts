@@ -4,7 +4,8 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, materialize, dematerialize } from 'rxjs/operators';
 
 // array in local storage for registered users
-const usersKey = 'angular-10-registration-login-example-users';
+const usersKey = 'https://lab.arkbox.co/api/';
+// const usersKey = 'angular-10-registration-login-example-users';
 let users = JSON.parse(localStorage.getItem(usersKey)) || [];
 
 @Injectable()
@@ -42,7 +43,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       if (!user) return error('Username or password is incorrect');
       return ok({
         ...basicDetails(user),
-        token: 'fake-jwt-token'
+        // token: 'fake-jwt-token'
+        token: 'jwttoken'
       })
     }
 
@@ -120,7 +122,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function isLoggedIn() {
-      return headers.get('Authorization') === 'Bearer fake-jwt-token';
+      // return headers.get('Authorization') === 'Bearer fake-jwt-token';
+      return headers.get('Authorization') === 'Bear jwttoken';
     }
 
     function idFromUrl() {
