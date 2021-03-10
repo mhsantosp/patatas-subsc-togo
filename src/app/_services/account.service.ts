@@ -24,10 +24,10 @@ export class AccountService {
     return this.userSubject.value;
   }
 
-  login(username, password) {
-    return this.http.post<User>(`${environment.apiUrl}/users/authenticate`, { username, password })
+  login(UserName, Password) {
+    return this.http.post<User>(`${environment.apiUrl}/users/authenticate`, { UserName, Password })
       .pipe(map(user => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        // store user details and jwt Token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify(user));
         this.userSubject.next(user);
         return user;
@@ -49,15 +49,15 @@ export class AccountService {
     return this.http.get<User[]>(`${environment.apiUrl}/users`);
   }
 
-  getById(id: string) {
-    return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
+  getById(Id: string) {
+    return this.http.get<User>(`${environment.apiUrl}/users/${Id}`);
   }
 
-  update(id, params) {
-    return this.http.put(`${environment.apiUrl}/users/${id}`, params)
+  update(Id, params) {
+    return this.http.put(`${environment.apiUrl}/users/${Id}`, params)
       .pipe(map(x => {
         // update stored user if the logged in user updated their own record
-        if (id == this.userValue.id) {
+        if (Id == this.userValue.Id) {
           // update local storage
           const user = { ...this.userValue, ...params };
           localStorage.setItem('user', JSON.stringify(user));
@@ -69,11 +69,11 @@ export class AccountService {
       }));
   }
 
-  delete(id: string) {
-    return this.http.delete(`${environment.apiUrl}/users/${id}`)
+  delete(Id: string) {
+    return this.http.delete(`${environment.apiUrl}/users/${Id}`)
       .pipe(map(x => {
         // auto logout if the logged in user deleted their own record
-        if (id == this.userValue.id) {
+        if (Id == this.userValue.Id) {
           this.logout();
         }
         return x;

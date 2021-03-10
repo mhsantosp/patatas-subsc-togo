@@ -3,20 +3,24 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th style="width: 30%">Nombres</th>
-      <th style="width: 30%">Apellidos</th>
-      <th style="width: 30%">Usuario</th>
+      <th style="width: 15%">Nombres</th>
+      <th style="width: 15%">Apellidos</th>
+      <th style="width: 15%">Usuario</th>
+      <th style="width: 30%">Correo</th>
+      <th style="width: 15%">Contacto</th>
       <th style="width: 10%"></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let user of users">
-      <td>{{ user.firstName }}</td>
-      <td>{{ user.lastName }}</td>
-      <td>{{ user.username }}</td>
+      <td>{{ user.FirstName }}</td>
+      <td>{{ user.LastName }}</td>
+      <td>{{ user.UserName }}</td>
+      <td>{{ user.Email }}</td>
+      <td>{{ user.PhoneNumber }}</td>
       <td style="white-space: nowrap">
-        <a routerLink="edit/{{ user.id }}" class="btn btn-sm btn-primary mr-1">Editar</a>
-        <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
+        <a routerLink="edit/{{ user.Id }}" class="btn btn-sm btn-primary mr-1">Editar</a>
+        <button (click)="deleteUser(user.Id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
           <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
           <span *ngIf="!user.isDeleting">Eliminar</span>
         </button>

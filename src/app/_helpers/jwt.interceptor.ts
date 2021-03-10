@@ -13,15 +13,14 @@ export class JwtInterceptor implements HttpInterceptor {
     // add auth header with jwt if user is logged in and request is to the api url
     const user = this.accountService.userValue;
 
-    const isLoggedIn = user && user.token;
+    const isLoggedIn = user && user.Token;
 
     const isApiUrl = request.url.startsWith(environment.apiUrl);
 
     if (isLoggedIn && isApiUrl) {
       request = request.clone({
         setHeaders: {
-          // Authorization: `Bearer ${user.token}`
-          Authorization: `Bear ${user.token}`
+          Authorization: `Bear ${user.Token}`
         }
       });
     }

@@ -1,5 +1,5 @@
 export class Alert {
-  id: string;
+  Id: string;
   type: AlertType;
   message: string;
   autoClose: boolean;

@@ -5,7 +5,6 @@ import { delay, materialize, dematerialize } from 'rxjs/operators';
 
 // array in local storage for registered users
 const usersKey = 'https://lab.arkbox.co/api/';
-// const usersKey = 'angular-10-registration-login-example-users';
 let users = JSON.parse(localStorage.getItem(usersKey)) || [];
 
 @Injectable()
@@ -36,26 +35,24 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     // route functions
-
     function authenticate() {
-      const { username, password } = body;
-      const user = users.find(x => x.username === username && x.password === password);
-      if (!user) return error('Username or password is incorrect');
+      const { UserName, Password } = body;
+      const user = users.find(x => x.UserName === UserName && x.Password === Password);
+      if (!user) return error('UserName or Password is incorrect');
       return ok({
         ...basicDetails(user),
-        // token: 'fake-jwt-token'
-        token: 'jwttoken'
+        Token: 'jwttoken'
       })
     }
 
     function register() {
       const user = body
 
-      if (users.find(x => x.username === user.username)) {
-        return error('Username "' + user.username + '" is already taken')
+      if (users.find(x => x.UserName === user.UserName)) {
+        return error('UserName "' + user.UserName + '" is already taken')
       }
 
-      user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
+      user.Id = users.length ? Math.max(...users.map(x => x.Id)) + 1 : 1;
       users.push(user);
       localStorage.setItem(usersKey, JSON.stringify(users));
       return ok();
@@ -69,7 +66,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     function getUserById() {
       if (!isLoggedIn()) return unauthorized();
 
-      const user = users.find(x => x.id === idFromUrl());
+      const user = users.find(x => x.Id === idFromUrl());
       return ok(basicDetails(user));
     }
 
@@ -77,11 +74,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       if (!isLoggedIn()) return unauthorized();
 
       let params = body;
-      let user = users.find(x => x.id === idFromUrl());
+      let user = users.find(x => x.Id === idFromUrl());
 
-      // only update password if entered
-      if (!params.password) {
-        delete params.password;
+      // only update Password if entered
+      if (!params.Password) {
+        delete params.Password;
       }
 
       // update and save user
@@ -94,13 +91,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     function deleteUser() {
       if (!isLoggedIn()) return unauthorized();
 
-      users = users.filter(x => x.id !== idFromUrl());
+      users = users.filter(x => x.Id !== idFromUrl());
       localStorage.setItem(usersKey, JSON.stringify(users));
       return ok();
     }
 
     // helper functions
-
     function ok(body?) {
       return of(new HttpResponse({ status: 200, body }))
         .pipe(delay(500)); // delay observable to simulate server api call
@@ -117,12 +113,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 
     function basicDetails(user) {
-      const { id, username, firstName, lastName } = user;
-      return { id, username, firstName, lastName };
+      const { Id, UserName, FirstName, LastName, Email, PhoneNumber } = user;
+      return { Id, UserName, FirstName, LastName, Email, PhoneNumber };
     }
 
     function isLoggedIn() {
-      // return headers.get('Authorization') === 'Bearer fake-jwt-token';
       return headers.get('Authorization') === 'Bear jwttoken';
     }
 

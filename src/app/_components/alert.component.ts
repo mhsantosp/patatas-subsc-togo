@@ -7,7 +7,7 @@ import { AlertService } from '../_services';
 
 @Component({ selector: 'alert', templateUrl: 'alert.component.html' })
 export class AlertComponent implements OnInit, OnDestroy {
-  @Input() id = 'default-alert';
+  @Input() Id = 'default-alert';
   @Input() fade = true;
 
   alerts: Alert[] = [];
@@ -18,7 +18,7 @@ export class AlertComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // subscribe to new alert notifications
-    this.alertSubscription = this.alertService.onAlert(this.id)
+    this.alertSubscription = this.alertService.onAlert(this.Id)
       .subscribe(alert => {
         // clear alerts when an empty alert is received
         if (!alert.message) {
@@ -42,7 +42,7 @@ export class AlertComponent implements OnInit, OnDestroy {
     // clear alerts on location change
     this.routeSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
-        this.alertService.clear(this.id);
+        this.alertService.clear(this.Id);
       }
     });
   }

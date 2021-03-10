@@ -8,7 +8,7 @@ import { AccountService, AlertService } from '../_services';
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
   form: FormGroup;
-  id: string;
+  Id: string;
   isAddMode: boolean;
   loading = false;
   submitted = false;
@@ -22,24 +22,26 @@ export class AddEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.params['id'];
-    this.isAddMode = !this.id;
+    this.Id = this.route.snapshot.params['Id'];
+    this.isAddMode = !this.Id;
 
-    // password not required in edit mode
+    // Password not required in edit mode
     const passwordValidators = [Validators.minLength(6)];
     if (this.isAddMode) {
       passwordValidators.push(Validators.required);
     }
 
     this.form = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', passwordValidators]
+      FirstName: ['', Validators.required],
+      LastName: ['', Validators.required],
+      UserName: ['', Validators.required],
+      Email: ['', Validators.required],
+      PhoneNumber: ['', Validators.required],
+      Password: ['', passwordValidators]
     });
 
     if (!this.isAddMode) {
-      this.accountService.getById(this.id)
+      this.accountService.getById(this.Id)
         .pipe(first())
         .subscribe(x => this.form.patchValue(x));
     }
@@ -83,7 +85,7 @@ export class AddEditComponent implements OnInit {
   }
 
   private updateUser() {
-    this.accountService.update(this.id, this.form.value)
+    this.accountService.update(this.Id, this.form.value)
       .pipe(first())
       .subscribe({
         next: () => {
